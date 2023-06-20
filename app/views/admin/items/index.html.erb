@@ -19,10 +19,10 @@
         <% @items.each do |item| %>
           <tr>
             <td><%= item.id %></td>
-            <td><%= item.name %></td>
+            <td><%= link_to item.name, admin_item_path(item) %></td>
             <td><%= item.price %></td>
-            <td><%= item.item_jenre.name %></td>
-            <td><%= item.status %></td>
+            <td><%= item.item_genre.name %></td>
+            <td><%= item.item_status %></td>
           </tr>
         <% end %>
       </table>
