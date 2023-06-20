@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     get '/' => 'homes#top'
 
     resources :items,       only: [:index, :new, :create, :show, :edit, :update]
-    resources :item_genre,  only: [:index, :create, :edit, :update]
+    resources :item_genres, only: [:index, :create, :edit, :update]
     resources :customers,   only: [:index, :show, :edit, :update]
     resources :orders,      only: [:show, :update]
     resources :order_items, only: [:update]
