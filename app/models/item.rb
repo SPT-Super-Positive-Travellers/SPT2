@@ -10,9 +10,9 @@ class Item < ApplicationRecord
 
   def item_status
     if is_availabled == true
-      item_status = "販売中"
+      "販売中"
     else
-      item_status = "販売停止中"
+      "販売停止中"
     end
   end
 end
