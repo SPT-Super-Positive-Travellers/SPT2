@@ -11,9 +11,11 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <%= flash[:notice] %>
-    <%= yield %>
-    <%= render 'layouts/footer' %>
+    <main>
+      <%= render 'layouts/header' %>
+      <%= flash[:notice] %>
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </main>
   </body>
 </html>
