@@ -1,2 +1,21 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <%= render 'sidebar', genres: @genres %>
+
+    <div class="col-md-4">
+      <%= image_tag @item.item_image, size: '300x250' %>
+    </div>
+    <div class="col-md-5">
+      <h4><b><%= @item.name %></b></h4>
+      <p><%= @item.introduction %></p>
+      <h4><b>￥<%= @item.price %></b>(税抜)</h4>
+
+      <%= form_with url: cart_items_path, method: :post do |f| %>
+        <%= f.select :count, *[1..10] %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.submit 'カートに入れる', class:"btn btn-success" %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
