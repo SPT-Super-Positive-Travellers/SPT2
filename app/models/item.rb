@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
 
   has_one_attached :item_image
+  has_many :cart_items
   belongs_to :item_genre
 
   validates :item_genre_id, presence: true
@@ -14,5 +15,9 @@ class Item < ApplicationRecord
     else
       "販売停止中"
     end
+  end
+  
+  def with_tax_price
+    ( price * 1.1 ).floor
   end
 end
