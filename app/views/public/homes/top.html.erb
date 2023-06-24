@@ -11,16 +11,20 @@
 
       <h4><b>新着商品</b></h4>
         <% @new_items.each do |item| %>
-          <div class="">
-            <%= link_to item_path(item) do %>
-              <%= image_tag item.item_image, size: "190x150" %>
-            <% end %><br>
-            <%= item.name %><br>
-            ¥<%= item.price %>
+          <div class="d-inline-flex">
+            <div class="">
+              <%= link_to item_path(item) do %>
+                <%= image_tag item.item_image, size: "190x150" %>
+              <% end %><br>
+              <%= item.name %><br>
+              ¥<%= item.price %>
+            </div>
           </div>
         <% end %>
-        <div class="">
-          <%= link_to '全ての商品を見る＞', items_path %>
+        <div class="d-flex">
+          <div class="ml-auto">
+            <%= link_to '全ての商品を見る＞', items_path %>
+          </div>
         </div>
     </div>
   </div>
