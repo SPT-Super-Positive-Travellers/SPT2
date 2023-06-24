@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get '/about' => 'homes#about', as: "about"
 
     resources :items,        only: [:index, :show]
-    resources :ditsinations, only: [:index, :edit, :create, :update, :destroy]
+    resources :destinations, only: [:index, :edit, :create, :update, :destroy]
 
     get 'customers' => 'customers#show'
     get 'customers/confirm'
