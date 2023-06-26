@@ -52,7 +52,7 @@
 
         <tr>
           <th class="bg-light">請求金額</th>
-          <% @order.amount_billed = @order.delivery_fee + total %>
+          <% @order.amount_billed = @order.delivery_fee + total.to_i %>
           <td>¥<%= @order.amount_billed.to_s(:delimited) %></td>
         </tr>
       </table>

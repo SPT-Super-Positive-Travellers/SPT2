@@ -40,7 +40,7 @@ class Public::OrdersController < ApplicationController
       end
     current_customer.cart_items.destroy_all
     redirect_to complete_orders_path
-  end
+    end
   end
 
   def complete
@@ -51,6 +51,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find(params[:id])
+    @total = @order.order_items.inject(0) { |sum, order_item| sum + order_item.total_price }
   end
 
   private

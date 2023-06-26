@@ -10,7 +10,7 @@
               <%= image_tag item.item_image, size: "190x150" %><br>
             <% end %>
             <%= item.name %><br>
-            ¥<%= item.price %>
+            ¥<%= item.with_tax_price %>
           </div>
         </div>
       <% end %>
