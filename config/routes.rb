@@ -27,9 +27,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [:new, :create, :index, :show]
-    post 'orders/confirm'
-    get 'orders/complete'
+    resources :orders, only: [:new, :create, :index, :show] do
+      collection do
+        post 'confirm'
+        get 'complete'
+      end
+    end
   end
 
   namespace :admin do
