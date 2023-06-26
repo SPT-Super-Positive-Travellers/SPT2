@@ -8,12 +8,12 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = Order.new(order_params)
     if params[:order][:destination_option] == '0'
-      @order.postal_code = current_customer.postal_code
-      @order.address     = current_customer.address
-      @order.name        = current_customer.full_name
+      @order.postal_code   = current_customer.postal_code
+      @order.address       = current_customer.address
+      @order.name          = current_customer.full_name
     elsif params[:order][:destination_option] == '1'
-      des = Destination.find(params[:order][:destination_id])
       if current_customer.destinations.present?
+        des = Destination.find(params[:order][:destination_id])
         @order.postal_code = des.postal_code
         @order.address     = des.address
         @order.name        = des.name
@@ -22,7 +22,7 @@ class Public::OrdersController < ApplicationController
     else
       render 'new'
     end
-    @cart_items = current_customer.cart_items.all
+    @cart_items         = current_customer.cart_items.all
     @order.delivery_fee = 800
     @order.customer_id  = current_customer.id
   end
