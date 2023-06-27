@@ -15,7 +15,7 @@
           <tr>
             <th>
               <%= link_to admin_order_path(order) do %>
-                <%= order.created_at %>
+                <%= l order.created_at, format: :short %>
               <% end %>
             </th>
             <th><%= order.customer.full_name %></th>
