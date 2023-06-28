@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     patch 'customers/information'    => 'customers#update'
     patch 'customers/quit'
 
+    resources :item_genres do
+      member do
+        get 'search'
+      end
+    end
+
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete 'destroy_all'
