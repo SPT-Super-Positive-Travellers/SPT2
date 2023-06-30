@@ -9,6 +9,11 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto mx-5">
         <% if customer_signed_in? %>
+
+          <li>
+            <%= link_to 'Maps', maps_path, class:"btn btn-outline-info mx-1" %>
+          </li>
+
           <li>
             <%= link_to 'マイページ', customers_path, class:"btn btn-outline-info mx-1" %>
           </li>
@@ -26,6 +31,10 @@
           </li>
 
         <% elsif admin_signed_in? %>
+
+          <li>
+            <%= link_to 'Maps', maps_path, class:"btn btn-outline-info mx-1" %>
+          </li>
 
           <li>
             <%= link_to '商品一覧', admin_items_path, class:"btn btn-outline-info mx-1" %>
@@ -48,6 +57,10 @@
           </li>
 
         <% else %>
+          <li>
+            <%= link_to 'Maps', maps_path, class:"btn btn-outline-info mx-1" %>
+          </li>
+
           <li>
             <%= link_to 'About', about_path, class:"btn btn-outline-info mx-1" %>
           </li>

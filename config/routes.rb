@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'maps/index'
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
 
     resources :items,        only: [:index, :show]
     resources :destinations, only: [:index, :edit, :create, :update, :destroy]
+    resources :maps,         only: [:index]
 
     get 'customers' => 'customers#show'
     get 'customers/confirm'
