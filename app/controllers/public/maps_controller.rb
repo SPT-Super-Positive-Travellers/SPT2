@@ -15,6 +15,7 @@ class Public::MapsController < ApplicationController
   end
 
   def show
+    @map = Map.find(params[:id])
   end
 
   private

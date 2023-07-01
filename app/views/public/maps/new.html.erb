@@ -18,8 +18,15 @@
 
       <script>
 
-        let map
-        let marker
+
+        // document.addEventListener('turbolinks:load', () => {
+        // document.addEventListener('load', () => {
+        if (typeof map == "undefined") {
+          let map;
+          let marker;
+          let geocoder;
+          let aft;
+        }
         function initMap(){
           geocoder = new google.maps.Geocoder()
 
@@ -29,8 +36,7 @@
           });
         }
 
-        let geocoder
-        let aft
+
         function codeAddress(){
           let inputAddress = document.getElementById('address').value;
           geocoder.geocode( { 'address': inputAddress }, function(results, status) {
@@ -59,6 +65,7 @@
             }
           });
         }
+        // })
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
 

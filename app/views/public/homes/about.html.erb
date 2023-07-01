@@ -15,10 +15,13 @@
         </style>
 
         <script>
+        if (typeof map == "undefined") {
           let map
           let geocoder
-
+          let inputAddress
           const display = document.getElementById('display')
+        }
+
 
           function initMap(){
             geocoder = new google.maps.Geocoder()
@@ -36,7 +39,7 @@
 
 
           function codeAddress(){
-            let inputAddress = document.getElementById('address').value;
+            inputAddress = document.getElementById('address').value;
 
             geocoder.geocode( {'address': inputAddress}, function(results, status) {
               if (status == 'OK') {
