@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
     resources :items,        only: [:index, :show]
     resources :destinations, only: [:index, :edit, :create, :update, :destroy]
-    resources :maps,         only: [:index]
+    resources :maps,         only: [:index, :create, :new, :show]
 
     get 'customers' => 'customers#show'
     get 'customers/confirm'
