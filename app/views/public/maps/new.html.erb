@@ -9,6 +9,21 @@
       <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
       <div id='map'></div>
 
+      <div class="actions my-5">
+        <%= form_with model: @map do |f| %>
+          <%= f.label :body, "内容" %>
+          <%= f.text_field :body %><br>
+
+          <%= f.label :lat, "緯度" %>
+          <%= f.text_field :lat, :value => "緯度", id: :lat %><br>
+
+          <%= f.label :lng, "経度" %>
+          <%= f.text_field :lng, :value => "緯度", id: :lng %>
+
+          <%= f.submit class:"btn btn-success" %>
+        <% end %>
+      </div>
+
       <style>
         #map {
           height: 400px;
@@ -17,15 +32,14 @@
       </style>
 
       <script>
-
-
         // document.addEventListener('turbolinks:load', () => {
         // document.addEventListener('load', () => {
+        // もしmapが定義されていなかったら
         if (typeof map == "undefined") {
           let map;
           let marker;
-          let geocoder;
-          let aft;
+          var geocoder;
+          var afterPinned;
         }
         function initMap(){
           geocoder = new google.maps.Geocoder()
@@ -36,22 +50,25 @@
           });
         }
 
+        afterPinned = false
+        //一度ピンを刺す処理を行なった後にcreateせず他ページにいき戻ってきた時の対策
 
         function codeAddress(){
           let inputAddress = document.getElementById('address').value;
           geocoder.geocode( { 'address': inputAddress }, function(results, status) {
             if (status == 'OK') {
-              if (aft == true) {
+              if (afterPinned == true) {
                 marker.setMap(null);
               }
               map.setCenter(results[0].geometry.location);
-                marker = new google.maps.Marker({
+                var marker = new google.maps.Marker({
                   map: map,
                   position: results[0].geometry.location,
                   draggable: true
                 });
 
-              aft = true
+              afterPinned = true
+              // ピンは一本しか刺せない
 
               document.getElementById('lat').value = results[0].geometry.location.lat();
               document.getElementById('lng').value = results[0].geometry.location.lng();
@@ -67,22 +84,7 @@
         }
         // })
       </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
 
-      <%= form_with model: @map do |f| %>
-        <div class="actions">
-          <%= f.label :body, "内容" %>
-          <%= f.text_field :body %><br>
-
-          <%= f.label :lat, "緯度" %>
-          <%= f.text_field :lat, :value => "緯度", id: :lat %><br>
-
-          <%= f.label :lng, "経度" %>
-          <%= f.text_field :lng, :value => "緯度", id: :lng %>
-
-          <%= f.submit %>
-        </div>
-      <% end %>
 
     </div>
   </div>
