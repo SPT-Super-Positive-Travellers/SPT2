@@ -16,8 +16,8 @@
       <%= render 'layouts/notice' %>
       <%= render 'layouts/error' %>
       <%= yield %>
-      <%= render 'layouts/footer' %>
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&libraries=places&callback=initMap" async defer></script>
+      <%= render 'layouts/footer' %>
     </main>
   </body>
 </html>
