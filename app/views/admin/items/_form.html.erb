@@ -1,0 +1,30 @@
+<%= form_with model: [:admin, item] do |f| %>
+  <p>商品画像</p>
+    <%= f.file_field :item_image %>
+
+  <p>商品名</p>
+    <%= f.text_field :name, placeholder: "商品名" %>
+
+  <p>商品説明</p>
+    <%= f.text_area :introduction, placeholder: "ここに説明文を記述します", rows: 5 %>
+
+  <p>ジャンル</p>
+    <%= f.select :item_genre_id, genres, { include_blank: "--選択して下さい--" }, {} %>
+
+  <p>税抜価格</p>
+    <%= f.text_field :price, placeholder: "1000" %>
+
+  <p>販売ステータス</p>
+    <%= f.radio_button :is_availabled, true, checked: true %>
+    <%= f.label :is_availabled, '販売中', value: true %>
+
+    <%= f.radio_button :is_availabled, false %>
+    <%= f.label :is_availabled, '販売停止中', value: false %>
+
+  <% if current_page?(new_admin_item_path) %>
+    <%= f.submit '新規登録', class:"btn btn-success" %>
+  <% else %>
+    <%= f.submit '変更を保存', class:"btn btn-success"%>
+  <% end %>
+
+<% end %>

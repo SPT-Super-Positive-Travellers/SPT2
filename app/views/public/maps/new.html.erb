@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2>Map</h2>
+
+      <input id="address" type="textbox" value="Tokyo">
+      <input type="button" value="search" onclick="codeAddress()">
+      <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+      <div id='map'></div>
+
+      <div class="actions my-5">
+        <%= form_with model: @map do |f| %>
+          <%= f.label :body, "内容" %>
+          <%= f.text_field :body %><br>
+
+          <%= f.label :lat, "緯度" %>
+          <%= f.text_field :lat, :value => "緯度", id: :lat %><br>
+
+          <%= f.label :lng, "経度" %>
+          <%= f.text_field :lng, :value => "緯度", id: :lng %>
+
+          <%= f.submit class:"btn btn-success" %>
+        <% end %>
+      </div>
+
+      <style>
+        #map {
+          height: 400px;
+          width: 800px;
+        }
+      </style>
+
+      <script>
+        // document.addEventListener('turbolinks:load', () => {
+        // document.addEventListener('load', () => {
+        // もしmapが定義されていなかったら
+        if (typeof map == "undefined") {
+          let map;
+          let marker;
+          var geocoder;
+          var afterPinned;
+        }
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
+
+          map = new google.maps.Map(document.getElementById('map'),{
+            center: { lat: 35.6803997, lng: 139.7690174 }, //Tokyo
+            zoom: 10,
+          });
+        }
+
+        afterPinned = false
+        //一度ピンを刺す処理を行なった後にcreateせず他ページにいき戻ってきた時の対策
+
+        function codeAddress(){
+          let inputAddress = document.getElementById('address').value;
+          geocoder.geocode( { 'address': inputAddress }, function(results, status) {
+            if (status == 'OK') {
+              if (afterPinned == true) {
+                marker.setMap(null);
+              }
+              map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location,
+                  draggable: true
+                });
+
+              afterPinned = true
+              // ピンは一本しか刺せない
+
+              document.getElementById('lat').value = results[0].geometry.location.lat();
+              document.getElementById('lng').value = results[0].geometry.location.lng();
+
+              google.maps.event.addListener(marker, 'dragend', function(ev){
+                document.getElementById('lat').value = ev.latLng.lat();
+                document.getElementById('lng').value = ev.latLng.lng();
+              });
+            } else {
+              alert('該当する結果はありませんでした:' + status);
+            }
+          });
+        }
+        // })
+      </script>
+
+
+    </div>
+  </div>
+</div>

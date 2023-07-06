@@ -1,0 +1,91 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-5">
+      <h2 class="my-2">NAGANO CAKE</h2>
+      <input id="address" type="textbox" value="NAGANO CAKE" class="form">
+      <input type="button" value="Encode" onclick="codeAddress()" class="btn btn-success my-1">
+      <div id="display"></div>
+      <div id="map"></div>
+    </div>
+
+    <div class="col-md-5 offset-2 my-5">
+
+      <table class="table table-borderless my-5">
+        <tr>
+          <th>住所</th>
+          <td>長野県OO市OO町OO-OO</td>
+        </tr>
+
+        <tr>
+          <th>電話番号</th>
+          <td><a href="tel:090-1234-5678">090-1234-5678</a></td>
+        </tr>
+
+        <tr>
+          <th>メールアドレス</th>
+          <td><a href="mailto:nagano-cake&#64;gmail.com">nagano-cake&#64;gmail.com</a></td>
+        </tr>
+      </table>
+
+      <h5>About</h5>
+      <p>
+        ながのCakeは全国発送可能なケーキ屋さんです。<br>
+        お子様からお年寄りの方までお召し上がりいただけるよう、<br>
+        様々なバリエーションをご用意しております。<br>
+        また、全国へ発送可能ですので「いつ」でも「どこ」でもご注文いただけます。
+        ぜひご注文ください。
+      </p>
+    </div>
+
+      <style>
+        #map {
+          height: 400px;
+          width: 600px;
+        }
+      </style>
+
+      <script>
+      if (typeof map == "undefined") {
+        let map
+        let geocoder
+        let inputAddress
+        const display = document.getElementById('display')
+      }
+
+
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
+
+          map = new google.maps.Map(document.getElementById('map'),{
+            center: {lat: 36.6485258, lng: 138.1950371},
+            zoom: 14,
+          });
+
+          marker = new google.maps.Marker({
+            position: {lat: 36.6485258, lng: 138.1950371},
+            map: map
+          });
+        }
+
+
+        function codeAddress(){
+          inputAddress = document.getElementById('address').value;
+
+          geocoder.geocode( {'address': inputAddress}, function(results, status) {
+            if (status == 'OK') {
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+              });
+              
+              display.textContent = "検索結果:" + results[0].geometry.location
+            } else {
+              alert('該当する結果がありませんでした：' + status);
+            }
+          });
+        }
+
+      </script>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div id="map"></div>
+
+      <style>
+        #map {
+          height: 600px;
+          width: 100%;
+        }
+      </style>
+
+      <script>
+        function initMap() {
+          let latlng = new google.maps.LatLng(35.6803997, 138.1950371);
+          let styles = [
+            {
+              stylers: [
+                { "saturation": 0 },
+                { "lightness": 0 }
+              ]
+            }
+          ];
+
+
+        let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          styles: styles,
+          center: latlng
+        });
+        let transitLayer = new google.maps.TransitLayer();
+        transitLayer.setMap(map);
+
+        <% @maps.each do |map| %>
+          ( function(){
+            let markerLatLng = { lat: <%= map.lat %>, lng: <%= map.lng %> };
+            let marker = new google.maps.Marker({
+              position: markerLatLng,
+              map: map
+            });
+
+            let infowindow = new google.maps.InfoWindow({
+              position: markerLatLng,
+              content: "<a href='<%= map_path(map.id) %>' target='_blank'><%= map.body %></a>"
+            });
+            marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+          })();
+        <% end %>
+        }
+      </script>
+
+    </div>
+  </div>
+</div>

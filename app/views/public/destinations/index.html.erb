@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h4>配送先登録/一覧</h4>
+      
+      <%= render 'form', destination: @destination %> 
+
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th>郵便番号</th>
+            <th>住所</th>
+            <th>宛名</th>
+            <th></th>
+          </tr>
+        </thead>
+          <% @destinations.each do |des| %>
+            <tr>
+              <th><%= des.postal_code %></th>
+              <th><%= des.address %></th>
+              <th><%= des.name %></th>
+              <th>
+                <%= link_to '編集する', edit_destination_path(des), class:"btn btn-success" %>
+                <%= link_to '削除する', destination_path(des), method: :delete, class:"btn btn-danger" %>
+              </th>
+            </tr>
+          <% end %>
+      </table>
+    </div>
+  </div>
+</div>
